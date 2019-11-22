@@ -1,0 +1,19 @@
+#!/bin/bash
+
+TMP_FILE=/tmp/proxy.edit
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"/..
+HOME=$($DIR/bin/config home)
+
+if [ -f $HOME/$1 ]; then
+
+  cat $HOME/$1 | tail -n +5 > $TMP_FILE.1
+
+  cat $HOME/$1 | head -n 4 | yq w - status "closed" > $TMP_FILE.2
+
+  cat $TMP_FILE.2 > $HOME/$1
+  cat $TMP_FILE.1 >> $HOME/$1
+
+  rm $TMP_FILE*
+else
+  echo "quest '$1' does not exist"
+fi

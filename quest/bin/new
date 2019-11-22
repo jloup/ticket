@@ -1,0 +1,13 @@
+#!/bin/bash
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"/..
+HOME=$($DIR/bin/config home)
+
+current=$($DIR/bin/last-quest-number)
+next=$((current + 1))
+
+user_email=$($DIR/bin/config user.email)
+
+cat $DIR/templates/quest.yaml.template | yq w - title "$1" | yq w - quest "$next" | yq w - responsible "$user_email" > $HOME/$next
+echo '----' >> $HOME/$next
+echo '...' >> $HOME/$next
