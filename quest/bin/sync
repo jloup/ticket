@@ -6,6 +6,8 @@ GIT="git -C $HOME"
 
 $GIT pull origin master
 
+$DIR/bin/build-memo
+
 # New quests
 for quest in $($GIT status -s | grep -E '\?\? [0-9]+' | cut -c4-); do
   $GIT add $quest &> /dev/null
@@ -17,5 +19,5 @@ for quest in $($GIT status -s | grep -E 'M [0-9]+' | cut -c4-); do
   $GIT add $quest &> /dev/null
   $GIT commit -m "Update quest #$quest" &> /dev/null
 done
-  
+
 $GIT push origin master

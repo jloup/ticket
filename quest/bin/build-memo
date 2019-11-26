@@ -1,0 +1,25 @@
+#!/bin/bash
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"/..
+HOME=$($DIR/bin/config home)
+GIT="git -C $HOME"
+
+if [ ! -f $HOME/1 ]; then
+  echo "No quest"
+  exit
+fi
+
+printf "## Quests" > $HOME/README.md
+printf "\n\n" >> $HOME/README.md
+
+for quest in $(grep -l 'status: open' $HOME/[0-9]*); do
+  number=$(cat $quest | head -n 4 | yq r - quest)
+  title=$(cat $quest | head -n 4 | yq r - title)
+
+  echo "- #$number **[$title](../blob/master/$number)**" >> $HOME/README.md
+done
+
+for readme in $($GIT status -s $HOME/README.md | grep -E 'README.md' | cut -c4-); do
+  $GIT add $readme &> /dev/null
+  $GIT commit -m "Build memo" &> /dev/null
+done
