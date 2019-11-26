@@ -16,7 +16,7 @@ for quest in $(grep -l 'status: open' $HOME/[0-9]*); do
   number=$(cat $quest | head -n 4 | yq r - quest)
   title=$(cat $quest | head -n 4 | yq r - title)
 
-  echo "- #$number **[$title](../blob/master/$number)**" >> $HOME/README.md
+  echo "$number. **[$title](../blob/master/$number)**" >> $HOME/README.md
 done
 
 for readme in $($GIT status -s $HOME/README.md | grep -E 'README.md' | cut -c4-); do
