@@ -27,6 +27,9 @@ init)
 sync)
   $DIR/sync
   ;;
+browser)
+  $DIR/browser
+  ;;
 config)
   $DIR/editconfig
   ;;

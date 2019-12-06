@@ -12,9 +12,9 @@ fi
 printf "## Quests" > $HOME/README.md
 printf "\n\n" >> $HOME/README.md
 
-for quest in $(grep -l 'status: open' $HOME/[0-9]*); do
-  number=$(cat $quest | head -n 4 | yq r - quest)
-  title=$(cat $quest | head -n 4 | yq r - title)
+for quest in $(cd $HOME && grep -l 'status: open' [0-9]* | sort -n); do
+  number=$(cat $HOME/$quest | head -n 4 | yq r - quest)
+  title=$(cat $HOME/$quest | head -n 4 | yq r - title)
 
   echo "$number. **[$title](../blob/master/$number)**" >> $HOME/README.md
 done
