@@ -33,6 +33,9 @@ browser)
 config)
   $DIR/editconfig
   ;;
+move)
+  $DIR/change-flag "${@:2}"
+  ;;
 *)
   echo "Unknown '$1' command."
   ;;

@@ -1,4 +1,5 @@
 quest: QUEST_NUMBER
 responsible: RESPONSIBLE
 status: open
+flag: backlog
 title: TITLE

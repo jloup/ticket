@@ -6,11 +6,11 @@ HOME=$($DIR/bin/config home)
 
 if [ -f $HOME/$1 ]; then
 
-  cat $HOME/$1 | tail -n +6 > $TMP_FILE
+  cat $HOME/$1 | tail -n +7 > $TMP_FILE
 
   vim $TMP_FILE
 
-  cat $HOME/$1 | head -n 5 > $HOME/tmp
+  cat $HOME/$1 | head -n 6 > $HOME/tmp
   cat $TMP_FILE >> $HOME/tmp
 
   mv $HOME/tmp $HOME/$1

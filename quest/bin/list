@@ -8,9 +8,36 @@ if [ ! -f $HOME/1 ]; then
   exit
 fi
 
-for quest in $(cd $HOME && grep -l 'status: open' [0-9]* | sort -n); do
-  number=$(cat $HOME/$quest | head -n 4 | yq r - quest)
-  title=$(cat $HOME/$quest | head -n 4 | yq r - title)
+#grep -l 'flag: backlog' $(grep -l 'status: open' [0-9]*)
 
-  echo "#$number $title"
-done
+#for quest in $(cd $HOME && grep -l 'status: open' [0-9]* | sort -n); do
+
+if [[ $($DIR/bin/flag-list now) ]]; then
+  echo "now"
+  for quest in $($DIR/bin/flag-list now); do
+    number=$(cat $HOME/$quest | head -n 5 | yq r - quest)
+    title=$(cat $HOME/$quest | head -n 5 | yq r - title)
+
+    echo "  #$number $title"
+  done
+fi
+
+if [[ $($DIR/bin/flag-list backlog) ]]; then
+  echo "backlog"
+  for quest in $($DIR/bin/flag-list backlog); do
+    number=$(cat $HOME/$quest | head -n 5 | yq r - quest)
+    title=$(cat $HOME/$quest | head -n 5 | yq r - title)
+
+    echo "  #$number $title"
+  done
+fi
+
+if [[ $($DIR/bin/flag-list lead) ]]; then
+  echo "leads"
+  for quest in $($DIR/bin/flag-list lead); do
+    number=$(cat $HOME/$quest | head -n 5 | yq r - quest)
+    title=$(cat $HOME/$quest | head -n 5 | yq r - title)
+
+    echo "  #$number $title"
+  done
+fi

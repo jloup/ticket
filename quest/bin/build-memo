@@ -12,12 +12,35 @@ fi
 printf "## Quests" > $HOME/README.md
 printf "\n\n" >> $HOME/README.md
 
-for quest in $(cd $HOME && grep -l 'status: open' [0-9]* | sort -n); do
-  number=$(cat $HOME/$quest | head -n 4 | yq r - quest)
-  title=$(cat $HOME/$quest | head -n 4 | yq r - title)
+if [[ $($DIR/bin/flag-list now) ]]; then
+  echo "### Now" >> $HOME/README.md
+  for quest in $($DIR/bin/flag-list now); do
+    number=$(cat $HOME/$quest | head -n 5 | yq r - quest)
+    title=$(cat $HOME/$quest | head -n 5 | yq r - title)
 
-  echo "$number. **[$title](../blob/master/$number)**" >> $HOME/README.md
-done
+    echo "$number. **[$title](../blob/master/$number)**" >> $HOME/README.md
+  done
+fi
+
+if [[ $($DIR/bin/flag-list backlog) ]]; then
+  echo "### Backlog" >> $HOME/README.md
+  for quest in $($DIR/bin/flag-list backlog); do
+    number=$(cat $HOME/$quest | head -n 5 | yq r - quest)
+    title=$(cat $HOME/$quest | head -n 5 | yq r - title)
+
+    echo "$number. **[$title](../blob/master/$number)**" >> $HOME/README.md
+  done
+fi
+
+if [[ $($DIR/bin/flag-list lead) ]]; then
+  echo "### Leads" >> $HOME/README.md
+  for quest in $($DIR/bin/flag-list lead); do
+    number=$(cat $HOME/$quest | head -n 5 | yq r - quest)
+    title=$(cat $HOME/$quest | head -n 5 | yq r - title)
+
+    echo "$number. **[$title](../blob/master/$number)**" >> $HOME/README.md
+  done
+fi
 
 for readme in $($GIT status -s $HOME/README.md | grep -E 'README.md' | cut -c4-); do
   $GIT add $readme &> /dev/null

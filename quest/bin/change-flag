@@ -6,9 +6,9 @@ HOME=$($DIR/bin/config home)
 
 if [ -f $HOME/$1 ]; then
 
-  cat $HOME/$1 | tail -n +6 > $TMP_FILE.1
+  cat $HOME/$1 | tail -n +5 > $TMP_FILE.1
 
-  cat $HOME/$1 | head -n 5 | yq w - status "closed" > $TMP_FILE.2
+  cat $HOME/$1 | head -n 4 | yq w - flag $2 > $TMP_FILE.2
 
   cat $TMP_FILE.2 > $HOME/$1
   cat $TMP_FILE.1 >> $HOME/$1

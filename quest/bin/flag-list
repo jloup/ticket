@@ -1,0 +1,11 @@
+#!/bin/bash
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"/..
+HOME=$($DIR/bin/config home)
+
+if [ ! -f $HOME/1 ]; then
+  echo "No quest"
+  exit
+fi
+
+cd $HOME && grep -l "flag: $1$" $(grep -l 'status: open' [0-9]*) | sort -n
