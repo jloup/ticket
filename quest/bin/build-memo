@@ -20,6 +20,8 @@ if [[ $($DIR/bin/flag-list now) ]]; then
 
     echo "$number. **[$title](../blob/master/$number)**" >> $HOME/README.md
   done
+
+  echo "" >> $HOME/README.md
 fi
 
 if [[ $($DIR/bin/flag-list backlog) ]]; then
@@ -30,6 +32,7 @@ if [[ $($DIR/bin/flag-list backlog) ]]; then
 
     echo "$number. **[$title](../blob/master/$number)**" >> $HOME/README.md
   done
+  echo "" >> $HOME/README.md
 fi
 
 if [[ $($DIR/bin/flag-list lead) ]]; then
@@ -40,6 +43,7 @@ if [[ $($DIR/bin/flag-list lead) ]]; then
 
     echo "$number. **[$title](../blob/master/$number)**" >> $HOME/README.md
   done
+  echo "" >> $HOME/README.md
 fi
 
 for readme in $($GIT status -s $HOME/README.md | grep -E 'README.md' | cut -c4-); do

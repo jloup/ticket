@@ -20,6 +20,7 @@ if [[ $($DIR/bin/flag-list now) ]]; then
 
     echo "  #$number $title"
   done
+  printf "\n"
 fi
 
 if [[ $($DIR/bin/flag-list backlog) ]]; then
@@ -30,6 +31,7 @@ if [[ $($DIR/bin/flag-list backlog) ]]; then
 
     echo "  #$number $title"
   done
+  printf "\n"
 fi
 
 if [[ $($DIR/bin/flag-list lead) ]]; then
@@ -40,4 +42,5 @@ if [[ $($DIR/bin/flag-list lead) ]]; then
 
     echo "  #$number $title"
   done
+  printf "\n"
 fi
