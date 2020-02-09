@@ -1,0 +1,39 @@
+#!/bin/bash
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+case $1 in
+new)
+  $DIR/new "${@:2}"
+  ;;
+count)
+  echo $($DIR/count)
+  ;;
+edit)
+  $DIR/edit "${@:2}"
+  ;;
+list)
+  $DIR/list
+  ;;
+show)
+  $DIR/show "${@:2}"
+  ;;
+init)
+  $DIR/init "${@:2}"
+  ;;
+sync)
+  $DIR/sync
+  ;;
+browser)
+  $DIR/browser
+  ;;
+config)
+  $DIR/editconfig
+  ;;
+move)
+  $DIR/change-flag "${@:2}"
+  ;;
+*)
+  echo "Unknown '$1' command."
+  ;;
+esac

@@ -1,0 +1,31 @@
+#!/bin/bash
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"/..
+HOME=$($DIR/bin/config home)
+GIT="git -C $HOME"
+
+if [ ! -f $HOME/1 ]; then
+  echo "No story"
+  exit
+fi
+
+printf "## Journal" > $HOME/README.md
+printf "\n\n" >> $HOME/README.md
+
+for story in $(cd $HOME && ls [0-9]* | sort -n); do
+  number=$(cat $HOME/$story | head -n 4 | yq r - story)
+  title=$(cat $HOME/$story | head -n 4 | yq r - title)
+  date=$(cat $HOME/$story | head -n 4 | yq r - date)
+  content=$($DIR/bin/content $number)
+
+  date_string=$($DIR/bin/timestamp_string $date)
+
+  printf "**$date_string [$title](../blob/master/$number)**\n\n$content \n\n" >> $HOME/README.md
+done
+
+echo "" >> $HOME/README.md
+
+for readme in $($GIT status -s $HOME/README.md | grep -E 'README.md' | cut -c4-); do
+  $GIT add $readme &> /dev/null
+  $GIT commit -m "Build memo" &> /dev/null
+done

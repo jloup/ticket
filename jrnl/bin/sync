@@ -1,0 +1,23 @@
+#!/bin/bash
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"/..
+HOME=$($DIR/bin/config home)
+GIT="git -C $HOME"
+
+$GIT pull origin master
+
+$DIR/bin/build-memo
+
+# New stories
+for story in $($GIT status -s | grep -E '\?\? [0-9]+' | cut -c4-); do
+  $GIT add $story &> /dev/null
+  $GIT commit -m "New story #$story" &> /dev/null
+done
+
+# Modified stories
+for story in $($GIT status -s | grep -E 'M [0-9]+' | cut -c4-); do
+  $GIT add $story &> /dev/null
+  $GIT commit -m "Update story #$story" &> /dev/null
+done
+
+$GIT push origin master

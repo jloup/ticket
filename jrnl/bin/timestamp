@@ -1,0 +1,11 @@
+#!/bin/bash
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"/..
+HOME=$($DIR/bin/config home)
+
+unix=$(date +%s)
+min_round=5
+
+round=$(($unix / (60 * $min_round) * 60 * $min_round))
+
+echo $round

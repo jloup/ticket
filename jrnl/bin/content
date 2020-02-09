@@ -1,0 +1,11 @@
+#!/bin/bash
+
+TMP_FILE=/tmp/proxy.edit
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"/..
+HOME=$($DIR/bin/config home)
+
+if [ -f $HOME/$1 ]; then
+  cat $HOME/$1 | tail -n +6
+else
+  echo "story '$1' does not exist"
+fi

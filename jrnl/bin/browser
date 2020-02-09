@@ -1,0 +1,24 @@
+#!/bin/bash
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"/..
+HOME=$($DIR/bin/config home)
+PLATFORM=$($DIR/bin/getplatform)
+
+GIT="git -C $HOME"
+
+case $PLATFORM in
+    Linux) open=xdg-open;;
+    Mac)   open=open;;
+esac
+
+if [[ $($GIT remote -v | head -n 1 | grep gitlab) ]]; then
+  project=$($GIT remote -v | head -n 1 | cut -c23- | rev | cut -c 13-  | rev)
+
+  $open https://gitlab.com/$project/blob/master/README.md
+fi
+
+if [[ $($GIT remote -v | head -n 1 | grep github) ]]; then
+  project=$($GIT remote -v | head -n 1 | cut -c23- | rev | cut -c 13-  | rev)
+
+  $open https://github.com/$project/blob/master/README.md
+fi

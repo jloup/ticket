@@ -1,0 +1,13 @@
+#!/bin/bash
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"/..
+HOME=$($DIR/bin/config home)
+
+index=$(ls $HOME/ |  sort -n | tail -n 1)
+
+if [ "$index" = "" ]
+then
+  echo 0
+else
+  echo $index
+fi

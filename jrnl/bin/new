@@ -1,0 +1,13 @@
+#!/bin/bash
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"/..
+HOME=$($DIR/bin/config home)
+
+current=$($DIR/bin/last-story-number)
+next=$((current + 1))
+
+timestamp=$($DIR/bin/timestamp)
+
+cat $DIR/templates/story.yaml.template | yq w - title "$1" | yq w - story "$next" | yq w - date "$timestamp" > $HOME/$next
+echo '----' >> $HOME/$next
+echo '...' >> $HOME/$next
