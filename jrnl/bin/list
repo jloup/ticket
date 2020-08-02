@@ -12,9 +12,8 @@ for story in $(cd $HOME && ls [0-9]* | sort -n); do
   number=$(cat $HOME/$story | head -n 4 | yq r - story)
   title=$(cat $HOME/$story | head -n 4 | yq r - title)
   date=$(cat $HOME/$story | head -n 4 | yq r - date)
-  content=$($DIR/bin/content $number)
 
   date_string=$($DIR/bin/timestamp_string $date)
 
-  printf "$date_string $title\n $content\n\n"
+  printf "$date_string $title\n"
 done
